@@ -36,6 +36,7 @@
 17.	Oppgaven skal levres som en GitHub rep
 
 18.	Må sjekke pakkesystem for testing
+
 19.	Lage sekvens diagramer for funksjonene vi har.
 
 
