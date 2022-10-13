@@ -43,10 +43,3 @@
 
 
 
-
-
-
-
-
-
-![image](https://user-images.githubusercontent.com/112077676/195606945-2ba23878-0cac-44a0-b86a-c7f10c8f87cb.png)
