@@ -1,0 +1,18 @@
+Funksjoner i python:
+
+Logg inn():
+parametere?
+post og get?
+
+Registrer bruker():
+
+Lei bil():
+
+Sette opp din bil til utleie():
+
+Legg til betalingsinformasjon?():
+
+Send melding():  (til f.eks. utleier med spørsmål osv)
+
+Lagre ProfilEndringer(): (f.eks. endre telefonnummer, epost, passord osv)
+
