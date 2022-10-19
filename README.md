@@ -1,4 +1,5 @@
-<blockquote class="imgur-embed-pub" lang="en" data-id="a/7lK4LYF" data-context="false" ><a href="//imgur.com/a/7lK4LYF"></a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
+
+<img src="https://imgur.com/a/7lK4LYF.png">
 
 1.	Hva er problem stillingen?
 
