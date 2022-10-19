@@ -1,3 +1,5 @@
+[Imgur](https://imgur.com/ICQQNUH)
+
 1.	Hva er problem stillingen?
 
 2.	Hva handler systemet om?
