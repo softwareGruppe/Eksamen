@@ -1,5 +1,5 @@
 
-<img src="https://imgur.com/a/7lK4LYF.jpg">
+<img src="https://i.imgur.com/ICQQNUH.jpg">
 
 1.	Hva er problem stillingen?
 
