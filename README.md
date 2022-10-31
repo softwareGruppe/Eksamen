@@ -1,7 +1,7 @@
 
 <img src="https://i.imgur.com/ICQQNUH.jpg">
 
-1.	Hva er problem stillingen?
+*	Hva er problem stillingen?
 
 2.	Hva handler systemet om?
 
