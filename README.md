@@ -1,6 +1,8 @@
 
 <img src="https://i.imgur.com/ICQQNUH.jpg">
 
+# Viktig
+
 * Hva er problem stillingen?
 
 *	Hva handler systemet om?
