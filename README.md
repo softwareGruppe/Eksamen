@@ -14,33 +14,33 @@
 
 *	MVP henger med krav.
 
-7.	Prototype = MVP 
+*	Prototype = MVP 
 
 
-8.	Vi kan velge hovedfunksjoner som har verdi til kunden
+*	Vi kan velge hovedfunksjoner som har verdi til kunden
 
-9.	Hva er omfang
+*	Hva er omfang
 
-10.	Hva er dokumentasjon og hva er kravene?
+*	Hva er dokumentasjon og hva er kravene?
 
 
-11.	Se hvordan vi kan gjøre dokumentasjon profesjonelt!
+*	Se hvordan vi kan gjøre dokumentasjon profesjonelt!
 
-12.	Se på t-skjorte estimerings metode for hvert enkelt krav
+*	Se på t-skjorte estimerings metode for hvert enkelt krav
 
-13.	Teste om krav fungere slik at MVP er gyldig!
+*	Teste om krav fungere slik at MVP er gyldig!
 
-14.	Prototypen skal ha persistent lagring/dynamisk 
+*	Prototypen skal ha persistent lagring/dynamisk 
 
-15.	Sørge at det er enkelt for kunden.
+*	Sørge at det er enkelt for kunden.
 
-16.	Pass på at dere avgrenser hva system skal gjøre og hva som håndteres av andre eksterne partnerne.
+*	Pass på at dere avgrenser hva system skal gjøre og hva som håndteres av andre eksterne partnerne.
 
-17.	Oppgaven skal levres som en GitHub rep
+*	Oppgaven skal levres som en GitHub rep
 
-18.	Må sjekke pakkesystem for testing
+*	Må sjekke pakkesystem for testing
 
-19.	Lage sekvens diagramer for funksjonene vi har.
+*	Lage sekvens diagramer for funksjonene vi har.
 
 
 
