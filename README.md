@@ -1,18 +1,18 @@
 
 <img src="https://i.imgur.com/ICQQNUH.jpg">
 
-*	Hva er problem stillingen?
+* Hva er problem stillingen?
 
-2.	Hva handler systemet om?
+*	Hva handler systemet om?
 
-3.	Lage prosjekt dokumentasjon og prototypen for en bedrift som har tjenester (Kunden kan leie ut bilen sin).
+*	Lage prosjekt dokumentasjon og prototypen for en bedrift som har tjenester (Kunden kan leie ut bilen sin).
 
-4.	Hva er kjernesystem og miljø, hvilken funksjon er obligatorisk å ha med?
+*	Hva er kjernesystem og miljø, hvilken funksjon er obligatorisk å ha med?
 
 
-5.	Hva er MVP?
+*	Hva er MVP?
 
-6.	MVP henger med krav.
+*	MVP henger med krav.
 
 7.	Prototype = MVP 
 
