@@ -175,7 +175,7 @@
               </grid>
             </children>
           </grid>
-          <grid id="a4b73" binding="createAdPanel" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+          <grid id="a4b73" binding="createAdPanel" layout-manager="GridLayoutManager" row-count="4" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
               <card name="Card2"/>
@@ -185,17 +185,17 @@
             </properties>
             <border type="none"/>
             <children>
-              <grid id="4a877" layout-manager="GridLayoutManager" row-count="8" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+              <grid id="4a877" layout-manager="GridLayoutManager" row-count="9" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                 <margin top="0" left="0" bottom="0" right="0"/>
                 <constraints>
-                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <background color="-1052689"/>
                 </properties>
                 <border type="none"/>
                 <children>
-                  <component id="91bdc" class="javax.swing.JTextField" binding="textField2" default-binding="true">
+                  <component id="91bdc" class="javax.swing.JTextField" binding="cartypeField">
                     <constraints>
                       <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                         <preferred-size width="150" height="-1"/>
@@ -206,7 +206,7 @@
                       <foreground color="-16777216"/>
                     </properties>
                   </component>
-                  <component id="1578c" class="javax.swing.JTextField" binding="textField3" default-binding="true">
+                  <component id="1578c" class="javax.swing.JTextField" binding="carmodelField">
                     <constraints>
                       <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                         <preferred-size width="150" height="-1"/>
@@ -217,7 +217,7 @@
                       <foreground color="-16777216"/>
                     </properties>
                   </component>
-                  <component id="83b26" class="javax.swing.JTextField" binding="textField4" default-binding="true">
+                  <component id="83b26" class="javax.swing.JTextField" binding="yearmodelField">
                     <constraints>
                       <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                         <preferred-size width="150" height="-1"/>
@@ -228,25 +228,7 @@
                       <foreground color="-16777216"/>
                     </properties>
                   </component>
-                  <component id="4fd68" class="javax.swing.JComboBox" binding="comboBox1" default-binding="true">
-                    <constraints>
-                      <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties>
-                      <background color="-1"/>
-                      <foreground color="-16777216"/>
-                    </properties>
-                  </component>
-                  <component id="4afb2" class="javax.swing.JComboBox" binding="comboBox2" default-binding="true">
-                    <constraints>
-                      <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties>
-                      <background color="-1"/>
-                      <foreground color="-16777216"/>
-                    </properties>
-                  </component>
-                  <component id="aa9a8" class="javax.swing.JTextField" binding="textField5" default-binding="true">
+                  <component id="aa9a8" class="javax.swing.JTextField" binding="mileageField">
                     <constraints>
                       <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                         <preferred-size width="150" height="-1"/>
@@ -257,7 +239,7 @@
                       <foreground color="-16777216"/>
                     </properties>
                   </component>
-                  <component id="cf134" class="javax.swing.JTextField" binding="textField6" default-binding="true">
+                  <component id="cf134" class="javax.swing.JTextField" binding="priceperdayField">
                     <constraints>
                       <grid row="7" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                         <preferred-size width="150" height="-1"/>
@@ -274,7 +256,7 @@
                     </constraints>
                     <properties>
                       <foreground color="-16777216"/>
-                      <text value="Label"/>
+                      <text value="Pris per døgn"/>
                     </properties>
                   </component>
                   <component id="4f8a0" class="javax.swing.JLabel">
@@ -283,7 +265,7 @@
                     </constraints>
                     <properties>
                       <foreground color="-16777216"/>
-                      <text value="Label"/>
+                      <text value="Kjørelengde"/>
                     </properties>
                   </component>
                   <component id="f6f05" class="javax.swing.JLabel">
@@ -292,7 +274,7 @@
                     </constraints>
                     <properties>
                       <foreground color="-16777216"/>
-                      <text value="Label"/>
+                      <text value="Drivstoff"/>
                     </properties>
                   </component>
                   <component id="6028e" class="javax.swing.JLabel">
@@ -301,7 +283,7 @@
                     </constraints>
                     <properties>
                       <foreground color="-16777216"/>
-                      <text value="Label"/>
+                      <text value="Girkasse"/>
                     </properties>
                   </component>
                   <component id="54fb3" class="javax.swing.JLabel">
@@ -310,7 +292,7 @@
                     </constraints>
                     <properties>
                       <foreground color="-16777216"/>
-                      <text value="Label"/>
+                      <text value="Årsmodell"/>
                     </properties>
                   </component>
                   <component id="cab6b" class="javax.swing.JLabel">
@@ -319,7 +301,7 @@
                     </constraints>
                     <properties>
                       <foreground color="-16777216"/>
-                      <text value="Label"/>
+                      <text value="Bilmodell"/>
                     </properties>
                   </component>
                   <component id="278e5" class="javax.swing.JLabel">
@@ -328,7 +310,7 @@
                     </constraints>
                     <properties>
                       <foreground color="-16777216"/>
-                      <text value="Label"/>
+                      <text value="Biltype"/>
                     </properties>
                   </component>
                   <component id="46d4a" class="javax.swing.JLabel">
@@ -340,7 +322,7 @@
                       <text value="Registrerings Nummer"/>
                     </properties>
                   </component>
-                  <component id="40c84" class="javax.swing.JTextField" binding="textField1" default-binding="true">
+                  <component id="40c84" class="javax.swing.JTextField" binding="regnrField">
                     <constraints>
                       <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                         <preferred-size width="150" height="-1"/>
@@ -351,16 +333,109 @@
                       <foreground color="-16777216"/>
                     </properties>
                   </component>
+                  <grid id="de8bc" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                    <margin top="0" left="0" bottom="0" right="0"/>
+                    <constraints>
+                      <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <background color="-1052689"/>
+                    </properties>
+                    <border type="none"/>
+                    <children>
+                      <component id="4edbf" class="javax.swing.JRadioButton" binding="automatRadioButton" default-binding="true">
+                        <constraints>
+                          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <background color="-1"/>
+                          <foreground color="-16777216"/>
+                          <text value="Automat"/>
+                        </properties>
+                      </component>
+                      <component id="7802e" class="javax.swing.JRadioButton" binding="manuellRadioButton" default-binding="true">
+                        <constraints>
+                          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <background color="-1"/>
+                          <foreground color="-16777216"/>
+                          <text value="Manuell"/>
+                        </properties>
+                      </component>
+                    </children>
+                  </grid>
+                  <grid id="6b823" layout-manager="GridLayoutManager" row-count="1" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                    <margin top="0" left="0" bottom="0" right="0"/>
+                    <constraints>
+                      <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <background color="-1052689"/>
+                    </properties>
+                    <border type="none"/>
+                    <children>
+                      <component id="76da2" class="javax.swing.JRadioButton" default-binding="true">
+                        <constraints>
+                          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <background color="-1"/>
+                          <foreground color="-16777216"/>
+                          <text value="Elbil"/>
+                        </properties>
+                      </component>
+                      <component id="9a488" class="javax.swing.JRadioButton" default-binding="true">
+                        <constraints>
+                          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <background color="-1"/>
+                          <foreground color="-16777216"/>
+                          <text value="Diesel"/>
+                        </properties>
+                      </component>
+                      <component id="9b92c" class="javax.swing.JRadioButton" binding="bensinRadioButton" default-binding="true">
+                        <constraints>
+                          <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <background color="-1"/>
+                          <foreground color="-16777216"/>
+                          <text value="Bensin"/>
+                        </properties>
+                      </component>
+                    </children>
+                  </grid>
                 </children>
               </grid>
               <component id="6fc8e" class="javax.swing.JButton" binding="createAddButton" default-binding="true">
                 <constraints>
-                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                  <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <background color="-5587731"/>
                   <foreground color="-16777216"/>
                   <text value="Create Add"/>
+                </properties>
+              </component>
+              <component id="4f282" class="javax.swing.JButton" binding="clearAllButton" default-binding="true">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <background color="-8960"/>
+                  <foreground color="-16777216"/>
+                  <text value="Clear All"/>
+                </properties>
+              </component>
+              <component id="69a33" class="javax.swing.JLabel" binding="errorCreateAdField">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <foreground color="-4521982"/>
+                  <text value="error"/>
                 </properties>
               </component>
             </children>
@@ -397,7 +472,7 @@
               <text value="Create new Advertisement"/>
             </properties>
           </component>
-          <component id="cff42" class="javax.swing.JButton" binding="createAdButton" default-binding="true">
+          <component id="cff42" class="javax.swing.JButton" binding="blueButton">
             <constraints>
               <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -407,7 +482,7 @@
               <text value="Create Ad"/>
             </properties>
           </component>
-          <component id="ccfa5" class="javax.swing.JButton" default-binding="true">
+          <component id="ccfa5" class="javax.swing.JButton" binding="greenButton">
             <constraints>
               <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>

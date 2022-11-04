@@ -32,17 +32,23 @@ public class rentYourCarGUI extends JFrame {
     private JPanel registerActionPanel;
     private JButton submitButton;
     private JPanel createAdPanel;
-    private JTextField textField2;
-    private JTextField textField3;
-    private JTextField textField4;
-    private JComboBox comboBox1;
-    private JComboBox comboBox2;
-    private JTextField textField5;
-    private JTextField textField6;
-    private JTextField textField1;
+    private JTextField cartypeField;
+    private JTextField carmodelField;
+    private JTextField yearmodelField;
+    private ComboBoxModel gearboxModel;
+    private ComboBoxModel fuelModel;
+    private JTextField mileageField;
+    private JTextField priceperdayField;
+    private JTextField regnrField;
     private JButton createAddButton;
     private JLabel pageText;
-    private JButton createAdButton;
+    private JButton blueButton;
+    private JButton greenButton;
+    private JButton clearAllButton;
+    private JRadioButton automatRadioButton;
+    private JRadioButton manuellRadioButton;
+    private JRadioButton bensinRadioButton;
+    private JLabel errorCreateAdField;
 
     public rentYourCarGUI(String title){
         super(title);
@@ -51,6 +57,8 @@ public class rentYourCarGUI extends JFrame {
         this.setContentPane(mainPanel);
         this.pack();
 
+        greenButton.setText("Home"); //kan endre navnet på knappene, og kan potensielt brukes til å gjøre flere ting-
+        blueButton.setText("Create Ad"); //- basert på hvilken side du er på
 
         submitButton.addActionListener(new ActionListener() {
             @Override
@@ -70,15 +78,44 @@ public class rentYourCarGUI extends JFrame {
 
         });
 
-        createAdButton.addActionListener(new ActionListener() {
+        blueButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                cardLayoutPanel.removeAll();
+                cardLayoutPanel.add(createAdPanel);
+                cardLayoutPanel.repaint();
+                cardLayoutPanel.revalidate();
+            }
+        });
+        greenButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cardLayoutPanel.removeAll();
+                cardLayoutPanel.add(registerUserPanel);
+                cardLayoutPanel.repaint();
+                cardLayoutPanel.revalidate();
             }
         });
 
+        clearAllButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ClearADFields(); } });
+
+        //gearboxComboBox.getModel(gearboxModel);
+        //fuelComboBox.getModel(fuelModel)
 
 
+
+    }
+
+    void ClearADFields() {
+        regnrField.setText("");
+        cartypeField.setText("");
+        carmodelField.setText("");
+        yearmodelField.setText("");
+        mileageField.setText("");
+        priceperdayField.setText("");
     }
 
 }
