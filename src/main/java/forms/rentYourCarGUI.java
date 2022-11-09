@@ -47,7 +47,6 @@ public class rentYourCarGUI extends JFrame {
     private JTextField priceperdayField;
     private JTextField regnrField;
     private JButton createAddButton;
-    private JLabel pageText;
     private JButton blueButton;
     private JButton greenButton;
     private JButton clearAllButton;
@@ -58,17 +57,153 @@ public class rentYourCarGUI extends JFrame {
     private JRadioButton dieselRadioButton;
     private JRadioButton elbilRadioButton;
 
+    //start page
+    private JPanel startPanel;
+    private JButton loggInnButton;
+    private JButton registerButton;
+    private JButton backButton;
+
+    //home page
+
+    private JPanel homePanel;
+    JsonFileHandler jfh = new JsonFileHandler();
+    private JPanel navigationPanel;
+    private JLabel logoLabel;
+    private JButton myListingsButton;
+    private JButton signOutButton;
+    private JLabel homePageLabel;
+    private javax.swing.JScrollPane JScrollPane;
+    private JList list1;
+    private JButton bookButton;
+    private JLabel select;
+
+    //My listings page
+    private JPanel myListings;
+    private JPanel deletePanel;
+    //JsonFileHandler jfh = new JsonFileHandler();
+    private JButton deleteButton;
+    private JList list2;
+    private javax.swing.JScrollPane JScrollPane2;
+    private JLabel select2;
+    private JLabel myListingsLabel;
+    private JButton purpleButton;
+
+    //booking panel
+    private JPanel bookingPanel;
+    private JScrollPane JScrollPane3;
+    private JLabel regNumLabel;
+    private int selectedIndex;
+    private JTextField regNumField;
+    private JLabel brandLabel;
+    private JTextField brandField;
+    private JLabel modelLabel;
+    private JTextField modelField;
+    private JLabel yearLabel;
+    private JTextField yearField;
+    private JLabel driveMileageLabel;
+    private JTextField driveMileageField;
+    private JLabel priceLabel;
+    private JTextField priceField;
+    private JLabel bookingStartDateLabel;
+    private JTextField bookingStartDateField;
+    private JLabel bookingStartTimeLabel;
+    private JTextField bookingStartTimeField;
+    private JLabel bookingEndDateLabel;
+    private JTextField bookingEndDateField;
+    private JLabel bookingEndTimeLabel;
+    private JTextField bookingEndTimeField;
+    private JButton bookButton2; //Field
+
+
     public rentYourCarGUI(String title){
         super(title);
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setContentPane(mainPanel);
         this.pack();
+        this.setSize(1000, 800);
+
+        ChangeCard(startPanel);
+        menuBar.setVisible(false);
+
+        bookButton.setVisible(true);
+        select.setVisible(false);
+        deleteButton.setVisible(false);
+        select2.setVisible(false);
+        JScrollPane.getVerticalScrollBar().setUnitIncrement(30);
+        JScrollPane2.getVerticalScrollBar().setUnitIncrement(30);
+
+        DefaultListModel listModel = new DefaultListModel();
+
+        list1.setModel(listModel);
 
         greenButton.setText("Home"); //kan endre navnet på knappene, og kan potensielt brukes til å gjøre flere ting-
         blueButton.setText("Create Ad"); //- basert på hvilken side du er på
         errorCreateAdField.setText("");
         //regnrField
+
+        loggInnButton.addActionListener(new ActionListener() {
+            @Override public void actionPerformed(ActionEvent e) {
+                ChangeCard(homePanel);
+                menuBar.setVisible(true);
+            } });
+
+        backButton.addActionListener(new ActionListener() {
+            @Override public void actionPerformed(ActionEvent e) {
+                ChangeCard(startPanel);
+            } });
+
+        registerButton.addActionListener(new ActionListener() {
+            @Override public void actionPerformed(ActionEvent e) {
+                ChangeCard(registerUserPanel);
+                //menuBar.setVisible(true);
+            } });
+
+
+        bookButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ChangeCard(bookingPanel);
+            }
+        });
+        /*
+        for (Car x : carReadFromfile) {
+            listModel.addElement(x.getBrand() + " " + x.getModel() + " " + x.getYear());
+        }
+        list1.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                String selected = list1.getSelectedValue().toString();
+                select.setVisible(true);
+                select.setText("Selected item is " + selected);
+
+                //hente selcted sin index
+                int selectedIndex = list1.getSelectedIndex();
+                System.out.println(selectedIndex);
+
+
+                //fjerne book knappen hvis bilen er booket eller bare gi en melding om at bilen er booket
+                Boolean status = carReadFromfile.get(selectedIndex).getAvailable();
+
+                if(!status){
+                    if(select.isVisible()){
+                        bookButton.setVisible(false);
+                        select.setText("Selected item is " + selected + " and is booked!" + " Please book another car :)");
+                    }
+                }
+
+                if(status){
+                    if(select.isVisible()){
+                        bookButton.setVisible(true);
+                    }
+                }
+
+                //hente alt av info fra array med indexen vi har
+                System.out.println(carReadFromfile.get(selectedIndex).getBrand());
+
+                //Endre siden når man trykker på book knappen
+            }
+        }); */
 
         submitButton.addActionListener(new ActionListener() {
             @Override
@@ -91,21 +226,20 @@ public class rentYourCarGUI extends JFrame {
         blueButton.addActionListener(new ActionListener() { //create ad button
             @Override
             public void actionPerformed(ActionEvent e) {
-                cardLayoutPanel.removeAll();
-                cardLayoutPanel.add(createAdPanel);
-                cardLayoutPanel.repaint();
-                cardLayoutPanel.revalidate();
+                ChangeCard(createAdPanel);
             }
         });
         greenButton.addActionListener(new ActionListener() { //home button
             @Override
             public void actionPerformed(ActionEvent e) {
-                cardLayoutPanel.removeAll();
-                cardLayoutPanel.add(registerUserPanel);
-                cardLayoutPanel.repaint();
-                cardLayoutPanel.revalidate();
+                ChangeCard(homePanel);
             }
         });
+
+        purpleButton.addActionListener(new ActionListener() {
+            @Override public void actionPerformed(ActionEvent e) {
+                ChangeCard(myListings);
+            }  });
 
         clearAllButton.addActionListener(new ActionListener() { //Removes all info from fields
             @Override
@@ -151,6 +285,18 @@ public class rentYourCarGUI extends JFrame {
         priceperdayField.addCaretListener(new CaretListener() { @Override public void caretUpdate(CaretEvent e) {
             priceperdayField.setBackground(white);
         } });
+    }
+
+    void ChangeCard(JPanel newCard) {
+        cardLayoutPanel.removeAll();
+        cardLayoutPanel.add(newCard);
+        cardLayoutPanel.repaint();
+        cardLayoutPanel.revalidate();
+        //if (newCard.getName().equals("homePanel")) {
+        //    menuBar.setVisible(false);
+        //} else {
+        //    menuBar.setVisible(true);
+        //}
     }
 
     void ClearADFields() {
