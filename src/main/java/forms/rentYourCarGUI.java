@@ -487,7 +487,6 @@ public class rentYourCarGUI extends JFrame {
             firstNameInput.setBackground(red);
             fieldsNotEmpty = false;
         }
-
         if (fieldsNotEmpty) {
             int age = 0;
             try {
