@@ -1,12 +1,11 @@
 package tools;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import models.User;
 import forms.rentYourCarGUI;
 import java.io.File;
 
-
 public class JsonFileHandler{
+    //kalle din filehandler her
 
     public void userToJson(User x){
         try{
@@ -17,7 +16,6 @@ public class JsonFileHandler{
         } catch (final Exception e){
             e.printStackTrace();
         }
-
 
     }
 
@@ -35,3 +33,5 @@ public class JsonFileHandler{
 
     }
 }
+
+

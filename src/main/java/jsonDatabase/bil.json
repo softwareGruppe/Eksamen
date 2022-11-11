@@ -1,0 +1,102 @@
+[
+  {
+    "regNum": "AR89232",
+    "brand": "Audi",
+    "model": "RS7",
+    "year": 2022,
+    "gearbox": "Automatic",
+    "fuel": "Bensin",
+    "driveMileage": 400,
+    "price": 3000,
+    "available": false
+  },
+
+  {
+    "regNum": "AR89232",
+    "brand": "Bmw",
+    "model": "M4",
+    "year": 2019,
+    "gearbox": "Automatic",
+    "fuel": "Bensin",
+    "driveMileage": 400,
+    "price": 3000,
+    "available": true
+  },
+  {
+    "regNum": "AR89232",
+    "brand": "Mercedes",
+    "model": "S-class",
+    "year": 2019,
+    "gearbox": "Automatic",
+    "fuel": "Bensin",
+    "driveMileage": 400,
+    "price": 3000,
+    "available": true
+  },
+  {
+    "regNum": "AR89232",
+    "brand": "Toyota",
+    "model": "Yaris",
+    "year": 2011,
+    "gearbox": "Automatic",
+    "fuel": "Bensin",
+    "driveMileage": 400,
+    "price": 3000,
+    "available": true
+  },
+  {
+    "regNum": "AR89232",
+    "brand": "VW",
+    "model": "Golf",
+    "year": 2022,
+    "gearbox": "Automatic",
+    "fuel": "Bensin",
+    "driveMileage": 400,
+    "price": 3000,
+    "available": true
+  },
+  {
+    "regNum": "AR89232",
+    "brand": "Tesla",
+    "model": "Model X",
+    "year": 2021,
+    "gearbox": "Automatic",
+    "fuel": "Bensin",
+    "driveMileage": 400,
+    "price": 3000,
+    "available": true
+  },
+  {
+    "regNum": "AR89232",
+    "brand": "Bmw",
+    "model": "IX",
+    "year": 2023,
+    "gearbox": "Automatic",
+    "fuel": "Bensin",
+    "driveMileage": 400,
+    "price": 3000,
+    "available": true
+  },
+  {
+    "regNum": "AR89232",
+    "brand": "Lamborghini",
+    "model": "Urus",
+    "year": 2020,
+    "gearbox": "Automatic",
+    "fuel": "Bensin",
+    "driveMileage": 400,
+    "price": 3000,
+    "available": true
+  },
+  {
+    "regNum": "AR89232",
+    "brand": "Mercedes",
+    "model": "G-wagon",
+    "year": 2021,
+    "gearbox": "Automatic",
+    "fuel": "Bensin",
+    "driveMileage": 400,
+    "price": 3000,
+    "available": true
+  }
+]
