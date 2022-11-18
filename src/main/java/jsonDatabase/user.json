@@ -1,0 +1,54 @@
+[
+  {
+    "id": 1,
+    "firstName": "Mohammed",
+    "lastName": "Almilhim",
+    "age": 20,
+    "address": "Falck Ytters gate 4, 1723 Sarpsborg",
+    "phoneNumber": "99863482",
+    "eMail": "mohammga@hiof.no",
+    "password": "heidu123"
+  },
+
+  {
+    "id": 2,
+    "firstName": "Odai",
+    "lastName": "Alkhalaf",
+    "age": 21,
+    "address": "Falck Ytters gate 4, 1723 Sarpsborg",
+    "phoneNumber": "99863482",
+    "eMail": "odaia@hiof.no",
+    "password": "heidu123"
+  },
+
+  {
+    "id": 3,
+    "firstName": "Abdullah",
+    "lastName": "Salha",
+    "age": 21,
+    "address": "Falck Ytters gate 4, 1723 Sarpsborg",
+    "phoneNumber": "99863482",
+    "eMail": "oleg@hiof.no",
+    "password": "heidu123"
+  },
+  {
+    "id": 4,
+    "firstName": "Martin",
+    "lastName": "Bore",
+    "age": 22,
+    "address": "Falck Ytters gate 4, 1723 Sarpsborg",
+    "phoneNumber": "99863482",
+    "eMail": "oleg@hiof.no",
+    "password": "heidu123"
+  },
+  {
+    "id": 5,
+    "firstName": "Edvin",
+    "lastName": "Ulvestad",
+    "age": 20,
+    "address": "Falck Ytters gate 4, 1723 Sarpsborg",
+    "phoneNumber": "99863482",
+    "eMail": "oleg@hiof.no",
+    "password": "heidu123"
+  }
+]

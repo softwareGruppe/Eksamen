@@ -1,8 +1,7 @@
 package models;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 public class User {
+    int id;
     String firstName;
     String lastName;
     int age;
@@ -15,8 +14,14 @@ public class User {
         //creating an empty constructor to prevent error when deserializing and reading from json file.
     }
 
-    public User(String firstName, String lastName, int age, String address, int phoneNumber,
+    @Override
+    public String toString() {
+        return "User: " + firstName;
+    }
+
+    public User(int id, String firstName, String lastName, int age, String address, int phoneNumber,
                 String eMail, String password) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
@@ -27,6 +32,13 @@ public class User {
 
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -56,16 +68,4 @@ public class User {
         return password;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", age=" + age +
-                ", address='" + address + '\'' +
-                ", phoneNumber=" + phoneNumber +
-                ", eMail='" + eMail + '\'' +
-                ", password='" + password + '\'' +
-                '}';
-    }
 }
