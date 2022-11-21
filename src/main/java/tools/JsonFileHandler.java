@@ -17,7 +17,7 @@ public class JsonFileHandler {
 
     ArrayList<Car> cars = new ArrayList<>();
 
-    File carJson = new File("src/main/java/jsonDatabase/bil.json");
+    File carJson = new File("src/main/java/jsonDatabase/car.json");
 
     ArrayList<Car> carList = readCarFromJSONfile();
 
@@ -70,6 +70,15 @@ public class JsonFileHandler {
 
         try {
             objectMapper.writeValue(carJson, cars);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void WriteUserToJSONfile(ArrayList<User> users) {
+        ObjectMapper objectMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
+
+        try {
+            objectMapper.writeValue(userJson, users);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

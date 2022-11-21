@@ -23,10 +23,13 @@ public class rentYourCarGUI extends JFrame {
     Color whitegray = Color.decode("#EFEFEF");
     Color red = Color.decode("#FF000A");
     User currentUser = new User();
-
+    int userIndex = 0;
+    Car currentlyBooking = new Car();
+    int currentlyBookingIndex = 0;
     DateTimeHandler dateTimeHandler = new DateTimeHandler();
     ArrayList<Car> carList = new ArrayList<>();
-    //ArrayList<Booking> bookList = new ArrayList<>();
+    ArrayList<User> userList = new ArrayList<>();
+            //ArrayList<Booking> bookList = new ArrayList<>();
     DefaultListModel<Car> listModel = new DefaultListModel();
     DefaultListModel<Car> listModel2 = new DefaultListModel();
     DefaultListModel<User> listModel3 = new DefaultListModel<>();
@@ -127,6 +130,19 @@ public class rentYourCarGUI extends JFrame {
     private JLabel todaydateLabel;
     private JLabel errorSignIn;
     private JButton backButton;
+    private JPanel paymentPanel;
+    private JLabel errorPayment;
+    private JPanel orderConfirmationPanel;
+    private JButton backToMyListingsButton;
+    private JButton payOrderButton;
+    private JTextField cardNumberField;
+    private JTextField expireMonthField;
+    private JTextField expireYearField;
+    private JTextField cvvField;
+    private JCheckBox savePaymentInformationForCheckBox;
+    private JTextArea yourbookingArea;
+    private JButton addToBalanceButton;
+    private JLabel balanceLabel;
 
 
     public rentYourCarGUI(String title){
@@ -145,10 +161,12 @@ public class rentYourCarGUI extends JFrame {
         deleteButton.setVisible(false);
         select2.setVisible(false);
         errorSignIn.setVisible(false);
+        errorPayment.setVisible(false);
+        addToBalanceButton.setVisible(false);
+        balanceLabel.setVisible(false);
         JScrollPane.getVerticalScrollBar().setUnitIncrement(30);
         JScrollPane2.getVerticalScrollBar().setUnitIncrement(30);
         JScrollPane3.getVerticalScrollBar().setUnitIncrement(30);
-
 
         welcomeUserLabel.setText("");
         todaydateLabel.setText("");
@@ -168,7 +186,7 @@ public class rentYourCarGUI extends JFrame {
         errorCreateAdField.setText("");
         errorBookingPage.setText("");
 
-        File carJson = new File("src/main/java/jsonDatabase/bil.json");
+        File carJson = new File("src/main/java/jsonDatabase/car.json");
 
         carList = jfh.readCarFromJSONfile();
         //bookList = jfh.readBookingFromJSONfile();
@@ -177,7 +195,7 @@ public class rentYourCarGUI extends JFrame {
 
         File userJson = new File("src/main/java/jsonDatabase/user.json");
 
-        ArrayList<User> userList = jfh.readUserFromJSONfile();
+        userList = jfh.readUserFromJSONfile();
 
         list1.addListSelectionListener(new ListSelectionListener() {
             @Override
@@ -221,8 +239,11 @@ public class rentYourCarGUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if (list3.getSelectedValue() != null) {
                     currentUser = list3.getSelectedValue();
+                    userIndex = list3.getSelectedIndex();
                     errorSignIn.setVisible(false);
                     errorSignIn.setText("");
+                    addToBalanceButton.setVisible(true);
+                    balanceLabel.setVisible(true);
                     ChangeCard(homePanel);
                     System.out.println(currentUser.toString());
                     welcomeUserLabel.setText("Welcome " + currentUser.getFirstName() + " " + currentUser.getLastName());
@@ -234,11 +255,32 @@ public class rentYourCarGUI extends JFrame {
             }
         });
 
+        addToBalanceButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                UpdateBalance(1000);
+            }
+        });
+
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ChangeCard(startPanel);
                 ClearSelections();
+            }
+        });
+        backToMyListingsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ChangeCard(myListings);
+                ClearSelections();
+            }
+        });
+
+        payOrderButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                PayOrder();
             }
         });
 
@@ -329,8 +371,8 @@ public class rentYourCarGUI extends JFrame {
                 } else if (MyListingLastSelect == 2){
                     int deleteAnswer = enWarning.showConfirmDialog(
                             mainPanel,
-                            "Would you like to delete the car?",
-                            "Delete car?",
+                            "Would you like to delete this booking?",
+                            "Delete booking?",
                             JOptionPane.WARNING_MESSAGE,
                             JOptionPane.YES_NO_OPTION);
                     if (deleteAnswer == 0) {
@@ -414,6 +456,7 @@ public class rentYourCarGUI extends JFrame {
         errorSignIn.setText("");
         errorBookingPage.setText("");
         errorCreateAdField.setText("");
+        errorPayment.setText("");
         list1.clearSelection();
         list2.clearSelection();
         list3.clearSelection();
@@ -458,6 +501,7 @@ public class rentYourCarGUI extends JFrame {
     public void getSelectedCar(){
         try {
             Car car = list1.getSelectedValue();
+            currentlyBookingIndex = list1.getSelectedIndex();
             select.setVisible(true);
 
             //hente selected element sitt index
@@ -548,6 +592,7 @@ public class rentYourCarGUI extends JFrame {
             signOutButton.setVisible(true);
             homeButton.setVisible(false);
             adButton.setVisible(false);
+            UpdateBalance(0);
         }
 
         if(newCard == myListings){
@@ -584,6 +629,8 @@ public class rentYourCarGUI extends JFrame {
             listingsButton.setVisible(false);
             adButton.setVisible(false);
             signOutButton.setVisible(false);
+            addToBalanceButton.setVisible(false);
+            balanceLabel.setVisible(false);
         }
     }
 
@@ -678,47 +725,57 @@ public class rentYourCarGUI extends JFrame {
                 if (startTimeCorrect == 2 && endTimeCorrect == 2) {
                     //Start date
                     if (dateTimeHandler.DateComparison(sd1,td1) == 1) {
-                        errorBookingPage.setText("Startdate year is in the past");
+                        errorBookingPage.setText("StartDate year is in the past");
                     } else if (dateTimeHandler.DateComparison(sd1,td1) == 2) {
-                        errorBookingPage.setText("Startdate month is in the past");
+                        errorBookingPage.setText("StartDate month is in the past");
                     } else if (dateTimeHandler.DateComparison(sd1,td1) == 3) {
                         errorBookingPage.setText("Cars can be booked at least one day after the application date");
                     } else { //End date
                         if (dateTimeHandler.DateComparison(ed1,td1) == 1) {
-                            errorBookingPage.setText("Enddate year is in the past");
+                            errorBookingPage.setText("EndDate year is in the past");
                         } else if (dateTimeHandler.DateComparison(ed1,td1) == 2) {
-                            errorBookingPage.setText("Enddate month is in the past");
+                            errorBookingPage.setText("EndDate month is in the past");
                         } else if (dateTimeHandler.DateComparison(ed1,td1) == 3) {
-                            errorBookingPage.setText("Enddate must be at least one day after start date");
+                            errorBookingPage.setText("EndDate must be at least one day after start date");
                         } else { //Is EndDate after StartDate
                             if (dateTimeHandler.DateComparison(ed1,sd1) == 1) {
-                                errorBookingPage.setText("Enddate year is lower than Startdate year");
+                                errorBookingPage.setText("EndDate year is lower than StartDate year");
                             } else if (dateTimeHandler.DateComparison(ed1,sd1) == 2) {
-                                errorBookingPage.setText("Enddate month is lower than Startdate month");
+                                errorBookingPage.setText("EndDate month is lower than StartDate month");
                             } else if (dateTimeHandler.DateComparison(ed1,sd1) == 3) {
-                                errorBookingPage.setText("Enddate cannot be before Startdate");
+                                errorBookingPage.setText("EndDate cannot be before StartDate");
                             } else {
                                 Car newBooking = new Car();
                                 String Regnr = regNumField.getText();
-                                for (Car x : carList) {
-                                    if (x.getRegNum() == Regnr) {
-                                        newBooking = x;
-
-
-                                    }
-                                }
+                                newBooking = carList.get(currentlyBookingIndex);
                                 System.out.println(newBooking.getBookingStartDate());
                                 newBooking.setTenantId(currentUser.getId()); //i JSON, sjekker hvilken bruker som er logget inn og setter verdien til bruker id
                                 newBooking.setBookingStartDate(bookingStartDateField.getText());
                                 newBooking.setBookingStartTime(bookingStartTimeField.getText());
                                 newBooking.setBookingEndDate(bookingEndDateField.getText());
                                 newBooking.setBookingEndTime(bookingEndTimeField.getText());
-                                if (newBooking.getAvailable() == null) {
+                                currentlyBooking = newBooking;
+                                System.out.println("Car availability " + newBooking.getAvailable());
+
+                                if (newBooking.getAvailable() == true) {
+                                    try {
+                                        if (currentUser.getCardNumber().length() == 16) {
+                                            cardNumberField.setText(currentUser.getCardNumber());
+                                            expireMonthField.setText(String.valueOf(currentUser.getExpireMonth()));
+                                            expireYearField.setText(String.valueOf(currentUser.getExpireYear()));
+                                            cvvField.setText(String.valueOf(currentUser.getCvvNumber()));
+                                        }
+                                    } catch (NullPointerException n) {
+                                        System.out.println("No card saved");
+                                    }
                                     newBooking.setAvailable(false);
-                                    jfh.WriteCarToJSONfile(carList);
+                                    if (currentUser.getCardNumber().length() == 16) {
+                                        savePaymentInformationForCheckBox.setVisible(false);
+                                    } else {
+                                        savePaymentInformationForCheckBox.setVisible(true);
+                                    }
                                     ClearBookFields();
-                                    ChangeCard(myListings);
-                                    GetMyListingsPageListings();
+                                    ChangeCard(paymentPanel);
                                 } else {
                                     errorBookingPage.setText("Booking failed, please try again later");
                                 }
@@ -728,16 +785,14 @@ public class rentYourCarGUI extends JFrame {
                 } else {
                     errorBookingPage.setText("Start or Endtime is invalid");
                 }
-            } catch (NumberFormatException e) {
-                errorBookingPage.setText("Date or Time Format is wrong (DD-MM-YYYY, HH:MM)");
-            }
-            catch (ArrayIndexOutOfBoundsException e2) {
+            } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
                 errorBookingPage.setText("Date or Time Format is wrong (DD-MM-YYYY, HH:MM)");
             }
         }
     }
 
-    void CreateAd() { //Validates all areas and can check if it is able to be proccessed
+    int CreateAd() { //Validates all areas and can check if it is able to be proccessed
+        int errorVariabel = 0;
         boolean fieldsNotEmpty = true; //bool for å sjekke om alle feltene har innhold
         errorCreateAdField.setText("");
         if (!elbilRadioButton.isSelected() && !dieselRadioButton.isSelected() && !bensinRadioButton.isSelected()) {
@@ -806,7 +861,7 @@ public class rentYourCarGUI extends JFrame {
                 if (automatRadioButton.isSelected()) {
                     gearbox = "Automatic";
                 } else if (manuellRadioButton.isSelected()) {
-                    gearbox = "Manuell";
+                    gearbox = "Manual";
                 }
                 if (elbilRadioButton.isSelected()) {
                     fuel = "Electric";
@@ -824,16 +879,13 @@ public class rentYourCarGUI extends JFrame {
                 for (Car x : carList) {
                     if (x.getRegNum().equals(newAd.getRegNum())) {
                         fault = 1;
-                        System.out.println("feil1");
                     }
                 }
-                if (gearbox.equals("Manuell") && fuel.equals("Electric")) {
+                if (gearbox.equals("Manual") && fuel.equals("Electric")) {
                     fault = 2;
-                    System.out.println("FEIL 2");
                 }
 
                 if (fault == 0) {
-                    System.out.println("FEIL ER 0");
                     carList.add(newAd);
                     jfh.WriteCarToJSONfile(carList);
                     ClearADFields();
@@ -841,15 +893,115 @@ public class rentYourCarGUI extends JFrame {
                     GetMyListingsPageListings();
                     GetHomePageListings();
                 } else if (fault == 1) {
-                    System.out.println("FEIL ER 1");
                     errorCreateAdField.setText("Warning: Registration Number already exists!");
                 } else if (fault == 2) {
-                    System.out.println("FEIL ER 2");
-                    errorCreateAdField.setText("Electric vehicles does not support manuell gearbox");
+                    errorCreateAdField.setText("Electric vehicles does not support manual gearbox");
                 }
             }
 
         }
+        return errorVariabel;
+    }
+
+    int PayOrder() {
+        boolean fieldsNotEmpty = true; //bool for å sjekke om alle feltene har innhold
+        errorPayment.setText("");
+        errorPayment.setVisible(false);
+        if (cvvField.getText().isEmpty()) {
+            errorPayment.setText("CVV cannot be empty");
+            errorPayment.setVisible(true); fieldsNotEmpty = false;
+        }
+        if (expireYearField.getText().isEmpty()) {
+            errorPayment.setText("Expire Year cannot be empty");
+            errorPayment.setVisible(true); fieldsNotEmpty = false;
+        }
+        if (expireMonthField.getText().isEmpty()) {
+            errorPayment.setText("Expire Month cannot be empty");
+            errorPayment.setVisible(true); fieldsNotEmpty = false;
+        }
+        if (cardNumberField.getText().isEmpty()) {
+            errorPayment.setText("Cardnumber cannot be empty");
+            errorPayment.setVisible(true); fieldsNotEmpty = false;
+        }
+        if (fieldsNotEmpty) {
+            String todaysdate = dateTimeHandler.GetTodaysDate();
+            String[] dates = todaysdate.split("-");
+            System.out.println(dates[2].substring(dates[2].length()-2));
+            if (cardNumberField.getText().length() != 16) {
+                errorPayment.setText("Cardnumber needs to contain 16 digits");
+                errorPayment.setVisible(true);
+            }
+            else if (!cardNumberField.getText().matches("[0-9]+")) {
+                errorPayment.setText("Cardnumber can only contain numbers");
+                errorPayment.setVisible(true);
+            }
+            else if(cardNumberField.getText().startsWith("0")) {
+                errorPayment.setText("Cardnumber is invalid and cannot start with 0");
+                errorPayment.setVisible(true);
+            }
+            else if (expireMonthField.getText().length() != 2) {
+                errorPayment.setText("Expire month can only contain 2 digits");
+                errorPayment.setVisible(true);
+            }
+            else if (!expireMonthField.getText().matches("[0-9]+")) {
+                errorPayment.setText("Expire month can only contain numbers");
+                errorPayment.setVisible(true);
+            }
+            else if (expireYearField.getText().length() != 2) {
+                errorPayment.setText("Expire year can only contain 2 digits");
+                errorPayment.setVisible(true);
+            }
+            else if (!expireYearField.getText().matches("[0-9]+")) {
+                errorPayment.setText("Expire year can only contain numbers");
+                errorPayment.setVisible(true);
+            }
+            else if (dates[2].substring(dates[2].length()-2).equals(expireYearField.getText())) {
+                if (Integer.parseInt(dates[1]) >= Integer.parseInt(expireMonthField.getText())) {
+                    errorPayment.setText("Card has expired");
+                    errorPayment.setVisible(true);
+                }
+            }
+            else if (cvvField.getText().length() != 3) {
+                errorPayment.setText("CVV can only contain 3 digits");
+                errorPayment.setVisible(true);
+            }
+            else if (!cvvField.getText().matches("[0-9]+")) {
+                errorPayment.setText("CVV can only contain numbers");
+                errorPayment.setVisible(true);
+            } else {//ALL INFO CORRECT
+                if (currentUser.getBalance() >= currentlyBooking.getPrice()) {
+                    UpdateBalance(-currentlyBooking.getPrice());
+                    if (savePaymentInformationForCheckBox.isSelected()) {
+                        currentUser.setCardNumber(cardNumberField.getText());
+                        currentUser.setExpireMonth(Integer.parseInt(expireMonthField.getText()));
+                        currentUser.setExpireYear(Integer.parseInt(expireYearField.getText()));
+                        currentUser.setCvvNumber(Integer.parseInt(cvvField.getText()));
+                    }
+                    userList.set(userIndex, currentUser);
+                    jfh.WriteUserToJSONfile(userList);
+                    jfh.WriteCarToJSONfile(carList);
+                    yourbookingArea.setText("You have booked " + currentlyBooking.getBrand() +
+                            " " + currentlyBooking.getModel() + " " + currentlyBooking.getYear() +
+                            "\nWith Registration Number " + currentlyBooking.getRegNum() + "\nYour booking starts: "
+                            + currentlyBooking.getBookingStartDate() + " T:" + currentlyBooking.getBookingStartTime() +
+                            "\nBooking ends: " + currentlyBooking.getBookingEndDate() + " T:" +
+                            currentlyBooking.getBookingEndTime() + "\nYour wallet have been charged with " + currentlyBooking.getPrice() + " kr" + "\n Your Balance is now " + currentUser.getBalance() + " kr.");
+                    ChangeCard(orderConfirmationPanel);
+                    ClearSelections();
+                    GetMyListingsPageListings();
+                } else {
+                    errorPayment.setText("Payment declined, you're broke");
+                }
+            }
+        }
+        return 0;
+    }
+
+    void UpdateBalance(int amount) {
+        currentUser.setBalance(currentUser.getBalance() + amount);
+        userList.set(userIndex, currentUser);
+        jfh.WriteUserToJSONfile(userList);
+        balanceLabel.setText("Current Balance: " + currentUser.getBalance() + " kr");
     }
 
 }

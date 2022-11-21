@@ -1,54 +1,71 @@
-[
-  {
-    "id": 1,
-    "firstName": "Mohammed",
-    "lastName": "Almilhim",
-    "age": 20,
-    "address": "Falck Ytters gate 4, 1723 Sarpsborg",
-    "phoneNumber": "99863482",
-    "eMail": "mohammga@hiof.no",
-    "password": "heidu123"
-  },
-
-  {
-    "id": 2,
-    "firstName": "Odai",
-    "lastName": "Alkhalaf",
-    "age": 21,
-    "address": "Falck Ytters gate 4, 1723 Sarpsborg",
-    "phoneNumber": "99863482",
-    "eMail": "odaia@hiof.no",
-    "password": "heidu123"
-  },
-
-  {
-    "id": 3,
-    "firstName": "Abdullah",
-    "lastName": "Salha",
-    "age": 21,
-    "address": "Falck Ytters gate 4, 1723 Sarpsborg",
-    "phoneNumber": "99863482",
-    "eMail": "oleg@hiof.no",
-    "password": "heidu123"
-  },
-  {
-    "id": 4,
-    "firstName": "Martin",
-    "lastName": "Bore",
-    "age": 22,
-    "address": "Falck Ytters gate 4, 1723 Sarpsborg",
-    "phoneNumber": "99863482",
-    "eMail": "oleg@hiof.no",
-    "password": "heidu123"
-  },
-  {
-    "id": 5,
-    "firstName": "Edvin",
-    "lastName": "Ulvestad",
-    "age": 20,
-    "address": "Falck Ytters gate 4, 1723 Sarpsborg",
-    "phoneNumber": "99863482",
-    "eMail": "oleg@hiof.no",
-    "password": "heidu123"
-  }
-]
+[ {
+  "id" : 1,
+  "firstName" : "Mohammed",
+  "lastName" : "Almilhim",
+  "age" : 20,
+  "address" : "Falck Ytters gate 4, 1723 Sarpsborg",
+  "phoneNumber" : 99863482,
+  "eMail" : "mohammga@hiof.no",
+  "password" : "heidu123",
+  "balance" : 10000,
+  "cardNumber" : "0",
+  "expireMonth" : 0,
+  "expireYear" : 0,
+  "cvvNumber" : 0
+}, {
+  "id" : 2,
+  "firstName" : "Odai",
+  "lastName" : "Alkhalaf",
+  "age" : 21,
+  "address" : "Dammyr 11, 1605 Fredrikstad",
+  "phoneNumber" : 48684544,
+  "eMail" : "odaia@hiof.no",
+  "password" : "heidu123",
+  "balance" : 10000,
+  "cardNumber" : "9372870184082746",
+  "expireMonth" : 6,
+  "expireYear" : 23,
+  "cvvNumber" : 524
+}, {
+  "id" : 3,
+  "firstName" : "Abdullah",
+  "lastName" : "Salha",
+  "age" : 21,
+  "address" : "Paul Homlmsens vei 11, 1613 Fredrikstad",
+  "phoneNumber" : 48382588,
+  "eMail" : "oleg@hiof.no",
+  "password" : "heidu123",
+  "balance" : 8200,
+  "cardNumber" : "1937592837402984",
+  "expireMonth" : 12,
+  "expireYear" : 24,
+  "cvvNumber" : 937
+}, {
+  "id" : 4,
+  "firstName" : "Martin",
+  "lastName" : "Bore",
+  "age" : 22,
+  "address" : "BRA veien 8 H0701, 1783 Halden",
+  "phoneNumber" : 46317818,
+  "eMail" : "martihbo@hiof.no",
+  "password" : "heidu123",
+  "balance" : 10000,
+  "cardNumber" : "0",
+  "expireMonth" : 0,
+  "expireYear" : 0,
+  "cvvNumber" : 0
+}, {
+  "id" : 5,
+  "firstName" : "Edvin",
+  "lastName" : "Ulvestad",
+  "age" : 20,
+  "address" : "BRA veien 8 H0702, 1783 Halden",
+  "phoneNumber" : 97732109,
+  "eMail" : "edvinu@hiof.no",
+  "password" : "heidu123",
+  "balance" : 10000,
+  "cardNumber" : "1234567812345678",
+  "expireMonth" : 12,
+  "expireYear" : 23,
+  "cvvNumber" : 231
+} ]
