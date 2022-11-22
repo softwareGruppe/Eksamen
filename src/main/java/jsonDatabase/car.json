@@ -158,4 +158,36 @@
   "bookingEndDate" : "12-12-2024",
   "bookingEndTime" : "00:00",
   "available" : false
+}, {
+  "ownerId" : 6,
+  "regNum" : "PC10543",
+  "brand" : "Sensorbil",
+  "model" : "jul",
+  "year" : 2022,
+  "gearbox" : "Automatic",
+  "fuel" : "Electric",
+  "driveMileage" : 234,
+  "price" : 1560,
+  "tenantId" : 0,
+  "bookingStartDate" : null,
+  "bookingStartTime" : null,
+  "bookingEndDate" : null,
+  "bookingEndTime" : null,
+  "available" : true
+}, {
+  "ownerId" : 6,
+  "regNum" : "PC01948",
+  "brand" : "Sensorbil2",
+  "model" : "jul",
+  "year" : 2022,
+  "gearbox" : "Automatic",
+  "fuel" : "Electric",
+  "driveMileage" : 0,
+  "price" : 1250,
+  "tenantId" : 0,
+  "bookingStartDate" : null,
+  "bookingStartTime" : null,
+  "bookingEndDate" : null,
+  "bookingEndTime" : null,
+  "available" : true
 } ]

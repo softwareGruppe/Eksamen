@@ -239,16 +239,23 @@ public class rentYourCarGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (list3.getSelectedValue() != null) {
-                    currentUser = list3.getSelectedValue();
-                    userIndex = list3.getSelectedIndex();
-                    errorSignIn.setVisible(false);
-                    errorSignIn.setText("");
-                    addToBalanceButton.setVisible(true);
-                    balanceLabel.setVisible(true);
-                    ChangeCard(homePanel);
-                    System.out.println(currentUser.toString());
-                    welcomeUserLabel.setText("Welcome " + currentUser.getFirstName() + " " + currentUser.getLastName());
-                    todaydateLabel.setText(dateTimeHandler.GetTodaysDate());
+                    User potentialUser = list3.getSelectedValue();
+                    boolean success = Functions.LogInnUser(potentialUser.getFirstName(), potentialUser.getId());
+                    if (success) {
+                        currentUser = list3.getSelectedValue();
+                        userIndex = list3.getSelectedIndex();
+                        errorSignIn.setVisible(false);
+                        errorSignIn.setText("");
+                        addToBalanceButton.setVisible(true);
+                        balanceLabel.setVisible(true);
+                        ChangeCard(homePanel);
+                        System.out.println(currentUser.toString());
+                        welcomeUserLabel.setText("Welcome " + currentUser.getFirstName() + " " + currentUser.getLastName());
+                        todaydateLabel.setText(dateTimeHandler.GetTodaysDate());
+                    } else {
+                        errorSignIn.setVisible(true);
+                        errorSignIn.setText("Error, User doesn't exist");
+                    }
                 } else {
                     errorSignIn.setVisible(true);
                     errorSignIn.setText("Please choose a user");
@@ -338,6 +345,7 @@ public class rentYourCarGUI extends JFrame {
                 ChangeCard(startPanel);
                 welcomeUserLabel.setText("");
                 todaydateLabel.setText("");
+                Functions.LogOutUser();
                 ClearSelections();
             }
         });
@@ -354,13 +362,15 @@ public class rentYourCarGUI extends JFrame {
                 if (MyListingLastSelect == 0) {
 
                 } else if (MyListingLastSelect == 1){
+
                     int deleteAnswer = enWarning.showConfirmDialog(
                             mainPanel,
                             "Would you like to delete the car?",
                             "Delete car?",
                             JOptionPane.WARNING_MESSAGE,
                             JOptionPane.YES_NO_OPTION);
-                    if (deleteAnswer == 0) {
+                    boolean delete = Functions.DeleteAction(MyListingLastSelect, deleteAnswer);
+                    if (delete) {
                         Car car = list2.getSelectedValue();
                         int indexCarToDelete = carList.indexOf(car);
                         carList.remove(car);
@@ -376,7 +386,8 @@ public class rentYourCarGUI extends JFrame {
                             "Delete booking?",
                             JOptionPane.WARNING_MESSAGE,
                             JOptionPane.YES_NO_OPTION);
-                    if (deleteAnswer == 0) {
+                    boolean delete = Functions.DeleteAction(MyListingLastSelect, deleteAnswer);
+                    if (delete) {
                         Car changeCar = list4.getSelectedValue();
                         int changeCarIndex = carList.indexOf(changeCar);
                         changeCar.setTenantId(0);
@@ -552,15 +563,19 @@ public class rentYourCarGUI extends JFrame {
         list4.clearSelection();
         listModel2.clear();
         listModel4.clear();
-
-        for (Car x : carList) {
-            if (x.getOwnerId() == currentUser.getId()) {
-                listModel2.addElement(x);}
-            if (x.getTenantId() == currentUser.getId()) {
-                listModel4.addElement(x);}
+        ArrayList<Car> fromFile = Functions.GetListings(currentUser.getId());
+        if (fromFile != null) {
+            for (Car x : carList) {
+                if (x.getOwnerId() == currentUser.getId()) {
+                    listModel2.addElement(x);}
+                if (x.getTenantId() == currentUser.getId()) {
+                    listModel4.addElement(x);}
+            }
+            list2.updateUI();
+            list4.updateUI();
+        } else {
+            System.out.println("No car listings");
         }
-        list2.updateUI();
-        list4.updateUI();
     }
 
     public void getMySelectedCar(){

@@ -1,7 +1,13 @@
 package tools;
 
+import models.Car;
+import models.User;
+
+import java.util.ArrayList;
+
 public final class Functions {
 
+    static JsonFileHandler jfh = new JsonFileHandler();
 
     public static String CreateAdFieldCheck(String regNr, String carType, String carModel, String yearModel, String mileage, String pricePerDay, String gearbox, String fuel) {
         try {
@@ -169,5 +175,44 @@ public final class Functions {
             return "Numberformatexception";
         }
         return "Error";
+    }
+
+    public static boolean LogInnUser(String username, int userId) {
+        boolean success = false;
+        ArrayList<User> userList = jfh.readUserFromJSONfile();
+        for (User u: userList) {
+            if ((u.getId() == userId) && (u.getFirstName().equals(username))) {
+                //user exists
+                success = true;
+            }
+        }
+        return success;
+    }
+
+    public static ArrayList<Car> GetListings(int userId) {
+        boolean success = false;
+        ArrayList<Car> carList = jfh.readCarFromJSONfile();
+        ArrayList<Car> returnList = new ArrayList<>();
+        for (Car c: carList) {
+            if (c.getOwnerId() == userId) {
+                returnList.add(c);
+            }
+        }
+        if (returnList.isEmpty()) {
+            return null;
+        }
+        return returnList;
+    }
+
+    public static boolean DeleteAction(int action, int commit) {
+        if (commit == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean LogOutUser() {
+        return true;
     }
 }

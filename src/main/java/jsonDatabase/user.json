@@ -68,4 +68,18 @@
   "expireMonth" : 12,
   "expireYear" : 23,
   "cvvNumber" : 231
+}, {
+  "id" : 6,
+  "firstName" : "Sensor",
+  "lastName" : "Ikke rør",
+  "age" : 100,
+  "address" : "BRA veien 9",
+  "phoneNumber" : 12345678,
+  "eMail" : "sensor@eksamen.hiof.no",
+  "password" : "heidu123",
+  "balance" : 1025000,
+  "cardNumber" : "0",
+  "expireMonth" : 0,
+  "expireYear" : 0,
+  "cvvNumber" : 0
 } ]
