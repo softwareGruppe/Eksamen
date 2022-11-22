@@ -16,8 +16,6 @@ public class TestTestClass {
         Create_Ad_RegisteryNumber_Too_Short();
     }*/
 
-    ///////////////////////////PAYMENT TESTING
-
 
 /*
     public void Create_Ad_RegNr_Is_Empty() { assertEquals(Functions.CreateAdFieldCheck("", "T", "T", "T", "T", "T", "T", "T"), "Registration Number field cannot be empty"); }
