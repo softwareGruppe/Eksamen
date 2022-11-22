@@ -1,0 +1,14 @@
+0 - Success
+1 - Inputfield is empty
+2 - Radiotbutton not selected
+3 - String too short
+4 - String too long
+5 - String can only contain numbers
+6 - String can only contain numbers and letters
+7 - String cannot be 0
+8 - Field uniqe error
+9 - Item already exist
+10 - NumberFormatException
+11 - NullPointerException
+12 - IndexOutOfBoundsException
+13 - ArrayIndexOutOfBoundsException

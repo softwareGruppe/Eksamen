@@ -13,6 +13,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import models.Car;
 import tools.DateTimeHandler;
+import tools.Functions;
 import tools.JsonFileHandler;
 import java.io.File;
 import java.util.ArrayList;
@@ -680,321 +681,164 @@ public class rentYourCarGUI extends JFrame {
         if (state == 3){bensinRadioButton.setSelected(true);}
     }
 
-    void BookListing() {
-        boolean fieldsNotEmpty = true; //bool for å sjekke om alle feltene har innhold
+    boolean BookListing() {
+        boolean success = false;
         errorBookingPage.setText("");
-        if (bookingStartDateField.getText().isEmpty()) {
-            errorCreateAdField.setText("Booking Date cannot be empty");
-            bookingStartDateField.setBackground(red); fieldsNotEmpty = false;
-        }
-        if (bookingStartTimeField.getText().isEmpty()) {
-            errorBookingPage.setText("Booking Date cannot be empty");
-            bookingStartTimeField.setBackground(red); fieldsNotEmpty = false;
-        }
-        if (bookingEndDateField.getText().isEmpty()) {
-            errorBookingPage.setText("Booking Date cannot be empty");
-            bookingEndDateField.setBackground(red); fieldsNotEmpty = false;
-        }
-        if (bookingEndTimeField.getText().isEmpty()) {
-            errorBookingPage.setText("Booking Date cannot be empty");
-            bookingEndTimeField.setBackground(red); fieldsNotEmpty = false;
-        }
-        if (regNumField.getText().isEmpty() || brandField.getText().isEmpty() || modelField.getText().isEmpty() || yearField.getText().isEmpty()) {
-            errorBookingPage.setText("Something went wrong, please try again later");
-        } else
-        if (fieldsNotEmpty) { //Dato kan senest være x måneder i framtiden
-            try {
-                if (bookingStartDateField.getText().contains(".")) {
-                    String[] SDF = bookingStartDateField.getText().split(".");
-                    bookingStartDateField.setText(SDF[0] + "-" + SDF[1] + "-" + SDF[2]); }
-                if (bookingEndDateField.getText().contains(".")) {
-                    String[] SDF = bookingEndDateField.getText().split(".");
-                    bookingEndDateField.setText(SDF[0] + "-" + SDF[1] + "-" + SDF[2]); }
-                String todaysDate = dateTimeHandler.GetTodaysDate();
-                String[] td1 = todaysDate.split("-"); //0 - dd, 1 - mm, 2 - yyyy
-                String startDate = bookingStartDateField.getText();
-                String[] sd1 = startDate.split("-"); //0 - dd, 1 - mm, 2 - yyyy
-                String endDate = bookingEndDateField.getText();
-                String[] ed1 = endDate.split("-"); //0 - dd, 1 - mm, 2 - yyyy
-                String startTime = bookingStartTimeField.getText();
-                String[] st1 = startTime.split(":"); //0 - hh, 1 - mm
-                int startTimeCorrect = dateTimeHandler.CheckTimeFormat(st1);
-                String endTime = bookingEndTimeField.getText();
-                String[] et1 = endTime.split(":"); //0 - hh, 1 - mm
-                int endTimeCorrect = dateTimeHandler.CheckTimeFormat(et1);
-                if (startTimeCorrect == 2 && endTimeCorrect == 2) {
-                    //Start date
-                    if (dateTimeHandler.DateComparison(sd1,td1) == 1) {
-                        errorBookingPage.setText("StartDate year is in the past");
-                    } else if (dateTimeHandler.DateComparison(sd1,td1) == 2) {
-                        errorBookingPage.setText("StartDate month is in the past");
-                    } else if (dateTimeHandler.DateComparison(sd1,td1) == 3) {
-                        errorBookingPage.setText("Cars can be booked at least one day after the application date");
-                    } else { //End date
-                        if (dateTimeHandler.DateComparison(ed1,td1) == 1) {
-                            errorBookingPage.setText("EndDate year is in the past");
-                        } else if (dateTimeHandler.DateComparison(ed1,td1) == 2) {
-                            errorBookingPage.setText("EndDate month is in the past");
-                        } else if (dateTimeHandler.DateComparison(ed1,td1) == 3) {
-                            errorBookingPage.setText("EndDate must be at least one day after start date");
-                        } else { //Is EndDate after StartDate
-                            if (dateTimeHandler.DateComparison(ed1,sd1) == 1) {
-                                errorBookingPage.setText("EndDate year is lower than StartDate year");
-                            } else if (dateTimeHandler.DateComparison(ed1,sd1) == 2) {
-                                errorBookingPage.setText("EndDate month is lower than StartDate month");
-                            } else if (dateTimeHandler.DateComparison(ed1,sd1) == 3) {
-                                errorBookingPage.setText("EndDate cannot be before StartDate");
-                            } else {
-                                Car newBooking = new Car();
-                                String Regnr = regNumField.getText();
-                                newBooking = carList.get(currentlyBookingIndex);
-                                System.out.println(newBooking.getBookingStartDate());
-                                newBooking.setTenantId(currentUser.getId()); //i JSON, sjekker hvilken bruker som er logget inn og setter verdien til bruker id
-                                newBooking.setBookingStartDate(bookingStartDateField.getText());
-                                newBooking.setBookingStartTime(bookingStartTimeField.getText());
-                                newBooking.setBookingEndDate(bookingEndDateField.getText());
-                                newBooking.setBookingEndTime(bookingEndTimeField.getText());
-                                currentlyBooking = newBooking;
-                                System.out.println("Car availability " + newBooking.getAvailable());
+        String regNum = regNumField.getText();
+        String brand = brandField.getText();
+        String model = modelField.getText();
+        String year = yearField.getText();
+        String mileage = mileageField.getText();
+        String price = priceField.getText();
+        String bookingStartDate = bookingStartDateField.getText();
+        String bookingStartTime = bookingStartTimeField.getText();
+        String bookingEndDate = bookingEndDateField.getText();
+        String bookingEndTime = bookingEndTimeField.getText();
+        String errorMessage = Functions.BookListingFieldCheck(regNum, brand, model, year, mileage, price, bookingStartDate, bookingStartTime, bookingEndDate, bookingEndTime);
+        if (errorMessage.isEmpty()) {
+            Car newBooking = new Car();
+            newBooking = carList.get(currentlyBookingIndex);
+            newBooking.setTenantId(currentUser.getId()); //i JSON, sjekker hvilken bruker som er logget inn og setter verdien til bruker id
+            newBooking.setBookingStartDate(bookingStartDateField.getText());
+            newBooking.setBookingStartTime(bookingStartTimeField.getText());
+            newBooking.setBookingEndDate(bookingEndDateField.getText());
+            newBooking.setBookingEndTime(bookingEndTimeField.getText());
+            currentlyBooking = newBooking;
 
-                                if (newBooking.getAvailable() == true) {
-                                    try {
-                                        if (currentUser.getCardNumber().length() == 16) {
-                                            cardNumberField.setText(currentUser.getCardNumber());
-                                            expireMonthField.setText(String.valueOf(currentUser.getExpireMonth()));
-                                            expireYearField.setText(String.valueOf(currentUser.getExpireYear()));
-                                            cvvField.setText(String.valueOf(currentUser.getCvvNumber()));
-                                        }
-                                    } catch (NullPointerException n) {
-                                        System.out.println("No card saved");
-                                    }
-                                    newBooking.setAvailable(false);
-                                    if (currentUser.getCardNumber().length() == 16) {
-                                        savePaymentInformationForCheckBox.setVisible(false);
-                                    } else {
-                                        savePaymentInformationForCheckBox.setVisible(true);
-                                    }
-                                    ClearBookFields();
-                                    ChangeCard(paymentPanel);
-                                } else {
-                                    errorBookingPage.setText("Booking failed, please try again later");
-                                }
-                            }
-                        }
+            if (newBooking.getAvailable() == true) {
+                try {
+                    if (currentUser.getCardNumber().length() == 16) {
+                        cardNumberField.setText(currentUser.getCardNumber());
+                        expireMonthField.setText(String.valueOf(currentUser.getExpireMonth()));
+                        expireYearField.setText(String.valueOf(currentUser.getExpireYear()));
+                        cvvField.setText(String.valueOf(currentUser.getCvvNumber()));
                     }
+                } catch (NullPointerException n) {
+                    System.out.println("No card saved");
+                }
+                newBooking.setAvailable(false);
+                if (currentUser.getCardNumber().length() == 16) {
+                    savePaymentInformationForCheckBox.setVisible(false);
                 } else {
-                    errorBookingPage.setText("Start or Endtime is invalid");
+                    savePaymentInformationForCheckBox.setVisible(true);
                 }
-            } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-                errorBookingPage.setText("Date or Time Format is wrong (DD-MM-YYYY, HH:MM)");
-            }
-        }
-    }
-
-    int CreateAd() { //Validates all areas and can check if it is able to be proccessed
-        int errorVariabel = 0;
-        boolean fieldsNotEmpty = true; //bool for å sjekke om alle feltene har innhold
-        errorCreateAdField.setText("");
-        if (!elbilRadioButton.isSelected() && !dieselRadioButton.isSelected() && !bensinRadioButton.isSelected()) {
-            errorCreateAdField.setText("Fueltype has not been set"); fieldsNotEmpty = false;
-        }
-        if (!automatRadioButton.isSelected() && !manuellRadioButton.isSelected()) {
-            errorCreateAdField.setText("Gearbox has not been set"); fieldsNotEmpty = false;
-        }
-        if (priceperdayField.getText().isEmpty()) {
-            errorCreateAdField.setText("Price field cannot be empty");
-            priceperdayField.setBackground(red); fieldsNotEmpty = false;
-        }
-        if (mileageField.getText().isEmpty()) {
-            errorCreateAdField.setText("Mileage field cannot be empty");
-            mileageField.setBackground(red); fieldsNotEmpty = false;
-        }
-        if (yearmodelField.getText().isEmpty()) {
-            errorCreateAdField.setText("Year model field cannot be empty");
-            yearmodelField.setBackground(red); fieldsNotEmpty = false;
-        }
-        if (carmodelField.getText().isEmpty()) {
-            errorCreateAdField.setText("Car model field cannot be empty");
-            carmodelField.setBackground(red); fieldsNotEmpty = false;
-        }
-        if (cartypeField.getText().isEmpty()) {
-            errorCreateAdField.setText("Car Type field cannot be empty");
-            cartypeField.setBackground(red); fieldsNotEmpty = false;
-        }
-        if (regnrField.getText().isEmpty()) {
-            errorCreateAdField.setText("Registration Number field cannot be empty");
-            regnrField.setBackground(red); fieldsNotEmpty = false;
-        }
-        if (fieldsNotEmpty) {
-            float price = 0;
-            boolean price_is_not_zero = true;
-            try {
-                price = Float.parseFloat(priceperdayField.getText());
-                if (price == 0) { price_is_not_zero = false; }
-            } catch (NumberFormatException e) { }
-            if (regnrField.getText().length() < 7) { //checks if number has 7 numbers + letters
-                errorCreateAdField.setText("Registration Number is too short");
-            } else
-            if (regnrField.getText().length() > 7) { //checks if number has 7 numbers + letters
-                errorCreateAdField.setText("Registration Number is too long");
-            } else
-            if (!mileageField.getText().matches("[0-9]+")) {
-                errorCreateAdField.setText("Mileage can only contain numbers");
-            } else
-            if (!priceperdayField.getText().matches("[0-9]+")) {
-                errorCreateAdField.setText("Price can only contain numbers");
-            } else
-            if (!price_is_not_zero) {
-                errorCreateAdField.setText("Price cannot be 0");
-            } else
-            if (!regnrField.getText().matches("[a-zA-Z0-9]+")) { //checks if regnr only contains letters/numbers
-                errorCreateAdField.setText("Registration Number can only contain Letters and Numbers");
+                ClearBookFields();
+                ChangeCard(paymentPanel);
+                success = true;
             } else {
-                Car newAd = new Car();
-                newAd.setOwnerId(currentUser.getId());
-                newAd.setRegNum(regnrField.getText());
-                newAd.setBrand(cartypeField.getText());
-                newAd.setModel(carmodelField.getText());
-                newAd.setYear(Integer.parseInt(yearmodelField.getText()));
-                String gearbox = "";
-                String fuel = "";
-                if (automatRadioButton.isSelected()) {
-                    gearbox = "Automatic";
-                } else if (manuellRadioButton.isSelected()) {
-                    gearbox = "Manual";
-                }
-                if (elbilRadioButton.isSelected()) {
-                    fuel = "Electric";
-                } else if (dieselRadioButton.isSelected()) {
-                    fuel = "Diesel";
-                } else if (bensinRadioButton.isSelected()) {
-                    fuel = "Petrol";
-                }
-                newAd.setGearbox(gearbox);
-                newAd.setFuel(fuel);
-                newAd.setDriveMileage(Integer.parseInt(mileageField.getText()));
-                newAd.setPrice(Integer.parseInt(priceperdayField.getText()));
-                newAd.setAvailable(true);
-                int fault = 0; //0 is all clear
-                for (Car x : carList) {
-                    if (x.getRegNum().equals(newAd.getRegNum())) {
-                        fault = 1;
-                    }
-                }
-                if (gearbox.equals("Manual") && fuel.equals("Electric")) {
-                    fault = 2;
-                }
-
-                if (fault == 0) {
-                    carList.add(newAd);
-                    jfh.WriteCarToJSONfile(carList);
-                    ClearADFields();
-                    ChangeCard(myListings);
-                    GetMyListingsPageListings();
-                    GetHomePageListings();
-                } else if (fault == 1) {
-                    errorCreateAdField.setText("Warning: Registration Number already exists!");
-                } else if (fault == 2) {
-                    errorCreateAdField.setText("Electric vehicles does not support manual gearbox");
-                }
+                errorBookingPage.setText("Booking failed, please try again later");
             }
-
+        } else {
+            errorBookingPage.setText(errorMessage);
         }
-        return errorVariabel;
+        return success;
     }
 
-    int PayOrder() {
-        boolean fieldsNotEmpty = true; //bool for å sjekke om alle feltene har innhold
+    public boolean CreateAd() { //Validates all areas and can check if it is able to be proccessed
+        boolean success = false;
+        String regNr = regnrField.getText();
+        String carType = cartypeField.getText();
+        String carModel = carmodelField.getText();
+        String yearModel = yearmodelField.getText();
+        String mileage = mileageField.getText();
+        String pricePerDay = priceperdayField.getText();
+        int yearModel2 = 0;
+        int mileage2 = 0;
+        int pricePerDay2 = 0;
+        String gearbox = "";
+        String fuel = "";
+        if (automatRadioButton.isSelected()) {
+            gearbox = "Automatic";
+        } else if (manuellRadioButton.isSelected()) {
+            gearbox = "Manual";
+        }
+        if (elbilRadioButton.isSelected()) {
+            fuel = "Electric";
+        } else if (dieselRadioButton.isSelected()) {
+            fuel = "Diesel";
+        } else if (bensinRadioButton.isSelected()) {
+            fuel = "Petrol";
+        }
+        String errorMessage = Functions.CreateAdFieldCheck(regNr, carType, carModel, yearModel, mileage, pricePerDay, gearbox, fuel);
+        if (errorMessage.isEmpty()) {
+            yearModel2 = Integer.parseInt(yearModel);
+            mileage2 = Integer.parseInt(mileage);
+            pricePerDay2 = Integer.parseInt(pricePerDay);
+            Car newAd = new Car();
+            newAd.setOwnerId(currentUser.getId());
+            newAd.setRegNum(regNr);
+            newAd.setBrand(carType);
+            newAd.setModel(carModel);
+            newAd.setYear(yearModel2);
+            newAd.setGearbox(gearbox);
+            newAd.setFuel(fuel);
+            newAd.setDriveMileage(mileage2);
+            newAd.setPrice(pricePerDay2);
+            newAd.setAvailable(true);
+            int fault = 0; //0 is all clear
+            for (Car x : carList) {
+                if (x.getRegNum().equals(newAd.getRegNum())) {
+                    fault = 1;
+                }
+            }
+            if (gearbox.equals("Manual") && fuel.equals("Electric")) {
+                fault = 2;
+            }
+
+            if (fault == 0) {
+                carList.add(newAd);
+                jfh.WriteCarToJSONfile(carList);
+                ClearADFields();
+                ChangeCard(myListings);
+                GetMyListingsPageListings();
+                GetHomePageListings();
+                success = true;
+            } else if (fault == 1) {
+                errorCreateAdField.setText("Warning: Registration Number already exists!");
+            } else if (fault == 2) {
+                errorCreateAdField.setText("Electric vehicles does not support manual gearbox");
+            }
+        } else {
+            errorCreateAdField.setText(errorMessage);
+        }
+        return success;
+    }
+
+    public boolean PayOrder() {
+        boolean success = false;
+        String cardNumber = cardNumberField.getText();
+        String expireMonth = expireMonthField.getText();
+        String expireYear = expireYearField.getText();
+        String cvv = cvvField.getText();
         errorPayment.setText("");
         errorPayment.setVisible(false);
-        if (cvvField.getText().isEmpty()) {
-            errorPayment.setText("CVV cannot be empty");
-            errorPayment.setVisible(true); fieldsNotEmpty = false;
-        }
-        if (expireYearField.getText().isEmpty()) {
-            errorPayment.setText("Expire Year cannot be empty");
-            errorPayment.setVisible(true); fieldsNotEmpty = false;
-        }
-        if (expireMonthField.getText().isEmpty()) {
-            errorPayment.setText("Expire Month cannot be empty");
-            errorPayment.setVisible(true); fieldsNotEmpty = false;
-        }
-        if (cardNumberField.getText().isEmpty()) {
-            errorPayment.setText("Cardnumber cannot be empty");
-            errorPayment.setVisible(true); fieldsNotEmpty = false;
-        }
-        if (fieldsNotEmpty) {
-            String todaysdate = dateTimeHandler.GetTodaysDate();
-            String[] dates = todaysdate.split("-");
-            System.out.println(dates[2].substring(dates[2].length()-2));
-            if (cardNumberField.getText().length() != 16) {
-                errorPayment.setText("Cardnumber needs to contain 16 digits");
-                errorPayment.setVisible(true);
-            }
-            else if (!cardNumberField.getText().matches("[0-9]+")) {
-                errorPayment.setText("Cardnumber can only contain numbers");
-                errorPayment.setVisible(true);
-            }
-            else if(cardNumberField.getText().startsWith("0")) {
-                errorPayment.setText("Cardnumber is invalid and cannot start with 0");
-                errorPayment.setVisible(true);
-            }
-            else if (expireMonthField.getText().length() != 2) {
-                errorPayment.setText("Expire month can only contain 2 digits");
-                errorPayment.setVisible(true);
-            }
-            else if (!expireMonthField.getText().matches("[0-9]+")) {
-                errorPayment.setText("Expire month can only contain numbers");
-                errorPayment.setVisible(true);
-            }
-            else if (expireYearField.getText().length() != 2) {
-                errorPayment.setText("Expire year can only contain 2 digits");
-                errorPayment.setVisible(true);
-            }
-            else if (!expireYearField.getText().matches("[0-9]+")) {
-                errorPayment.setText("Expire year can only contain numbers");
-                errorPayment.setVisible(true);
-            }
-            else if (dates[2].substring(dates[2].length()-2).equals(expireYearField.getText())) {
-                if (Integer.parseInt(dates[1]) >= Integer.parseInt(expireMonthField.getText())) {
-                    errorPayment.setText("Card has expired");
-                    errorPayment.setVisible(true);
+        String errorMessage = Functions.PayOrderFieldCheck(cardNumber, expireMonth, expireYear, cvv);
+        if (errorMessage.isEmpty()) {
+            if (currentUser.getBalance() >= currentlyBooking.getPrice()) {
+                UpdateBalance(-currentlyBooking.getPrice());
+                if (savePaymentInformationForCheckBox.isSelected()) {
+                    currentUser.setCardNumber(cardNumberField.getText());
+                    currentUser.setExpireMonth(Integer.parseInt(expireMonthField.getText()));
+                    currentUser.setExpireYear(Integer.parseInt(expireYearField.getText()));
+                    currentUser.setCvvNumber(Integer.parseInt(cvvField.getText()));
                 }
-            }
-            else if (cvvField.getText().length() != 3) {
-                errorPayment.setText("CVV can only contain 3 digits");
-                errorPayment.setVisible(true);
-            }
-            else if (!cvvField.getText().matches("[0-9]+")) {
-                errorPayment.setText("CVV can only contain numbers");
-                errorPayment.setVisible(true);
-            } else {//ALL INFO CORRECT
-                if (currentUser.getBalance() >= currentlyBooking.getPrice()) {
-                    UpdateBalance(-currentlyBooking.getPrice());
-                    if (savePaymentInformationForCheckBox.isSelected()) {
-                        currentUser.setCardNumber(cardNumberField.getText());
-                        currentUser.setExpireMonth(Integer.parseInt(expireMonthField.getText()));
-                        currentUser.setExpireYear(Integer.parseInt(expireYearField.getText()));
-                        currentUser.setCvvNumber(Integer.parseInt(cvvField.getText()));
-                    }
-                    userList.set(userIndex, currentUser);
-                    jfh.WriteUserToJSONfile(userList);
-                    jfh.WriteCarToJSONfile(carList);
-                    yourbookingArea.setText("You have booked " + currentlyBooking.getBrand() +
-                            " " + currentlyBooking.getModel() + " " + currentlyBooking.getYear() +
-                            "\nWith Registration Number " + currentlyBooking.getRegNum() + "\nYour booking starts: "
-                            + currentlyBooking.getBookingStartDate() + " T:" + currentlyBooking.getBookingStartTime() +
-                            "\nBooking ends: " + currentlyBooking.getBookingEndDate() + " T:" +
-                            currentlyBooking.getBookingEndTime() + "\nYour wallet have been charged with " + currentlyBooking.getPrice() + " kr" + "\n Your Balance is now " + currentUser.getBalance() + " kr.");
-                    ChangeCard(orderConfirmationPanel);
-                    ClearSelections();
-                    GetMyListingsPageListings();
-                } else {
-                    errorPayment.setText("Payment declined, you're broke");
-                }
+                userList.set(userIndex, currentUser);
+                jfh.WriteUserToJSONfile(userList);
+                jfh.WriteCarToJSONfile(carList);
+                yourbookingArea.setText("You have booked " + currentlyBooking.getBrand() +
+                        " " + currentlyBooking.getModel() + " " + currentlyBooking.getYear() +
+                        "\nWith Registration Number " + currentlyBooking.getRegNum() + "\nYour booking starts: "
+                        + currentlyBooking.getBookingStartDate() + " T:" + currentlyBooking.getBookingStartTime() +
+                        "\nBooking ends: " + currentlyBooking.getBookingEndDate() + " T:" +
+                        currentlyBooking.getBookingEndTime() + "\nYour wallet have been charged with " + currentlyBooking.getPrice() + " kr" + "\n Your Balance is now " + currentUser.getBalance() + " kr.");
+                ChangeCard(orderConfirmationPanel);
+                ClearSelections();
+                GetMyListingsPageListings();
+            } else {
+                errorPayment.setText("Payment declined, you're broke");
             }
         }
-        return 0;
+        return success;
     }
 
     void UpdateBalance(int amount) {
