@@ -22,5 +22,5 @@ public class UserCommitsTest {
     @Test
     public void Delete_Booking() { assertTrue(Functions.DeleteAction(2,0)); }
     @Test
-    public void Delete_Listing() { assertTrue(Functions.DeleteAction(1,0)); }
+    public void Delete_Your_Ad_Listing() { assertTrue(Functions.DeleteAction(1,0)); }
 }
