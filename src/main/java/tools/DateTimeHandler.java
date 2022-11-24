@@ -22,7 +22,6 @@ public class DateTimeHandler {
         list.add(format[0]); //year
         String finalDate = DateFormatReturn(list);
         todaysDate = finalDate;
-        System.out.println(finalDate);
         return finalDate;
     }
 

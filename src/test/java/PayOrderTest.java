@@ -73,7 +73,6 @@ public class PayOrderTest {
     public void cvv_contains_letters(){
         assertEquals(Functions.PayOrderFieldCheck("2386291689658267", "10", "24", "hhk"), "CVV can only contain numbers");
     }
-
     @Test
     public void cardInformation_is_valid(){
         assertEquals(Functions.PayOrderFieldCheck("2386291689658267", "10", "24", "342"), "");

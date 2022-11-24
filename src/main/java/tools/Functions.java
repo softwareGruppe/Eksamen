@@ -50,17 +50,17 @@ public final class Functions {
             if (regNum.isEmpty() || brand.isEmpty() || model.isEmpty() || year.isEmpty()) {
                 return "Something went wrong, please try again later";
             }
-            if (bookingEndTime.isEmpty()) {
-                return "Booking Date cannot be empty";
-            }
-            if (bookingEndDate.isEmpty()) {
-                return "Booking Date cannot be empty";
+            if (bookingStartDate.isEmpty()) {
+                return "Booking StartDate cannot be empty";
             }
             if (bookingStartTime.isEmpty()) {
-                return "Booking Date cannot be empty";
+                return "Booking StartTime cannot be empty";
             }
-            if (bookingStartDate.isEmpty()) {
-                return "Booking Date cannot be empty";
+            if (bookingEndDate.isEmpty()) {
+                return "Booking EndDate cannot be empty";
+            }
+            if (bookingEndTime.isEmpty()) {
+                return "Booking EndTime cannot be empty";
             }
 
             if (bookingStartDate.contains(".")) {
@@ -88,7 +88,7 @@ public final class Functions {
                 } else if (dateTimeHandler.DateComparison(sd1,td1) == 2) {
                     return "StartDate month is in the past";
                 } else if (dateTimeHandler.DateComparison(sd1,td1) == 3) {
-                    return "Cars can be booked at least one day after the application date";
+                    return "Booking must start tomorrow or later";
                 } else { //End date
                     if (dateTimeHandler.DateComparison(ed1,td1) == 1) {
                         return "EndDate year is in the past";
@@ -108,7 +108,6 @@ public final class Functions {
                         }
                     }
                 }
-
             } else {
                 return "Start or Endtime is invalid";
             }
