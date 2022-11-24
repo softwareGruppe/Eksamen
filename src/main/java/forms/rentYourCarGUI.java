@@ -209,8 +209,6 @@ public class rentYourCarGUI extends JFrame {
             public void valueChanged(ListSelectionEvent e) {
                 try {
                     Car carInfo = list4.getSelectedValue();
-                    System.out.println(carInfo);
-                    System.out.println(list4.getSelectedValue());
                     select2.setVisible(true);
                     select2.setText(carInfo.GetBookingInfo());
                     if (!select2.getText().isEmpty()) {
@@ -220,9 +218,9 @@ public class rentYourCarGUI extends JFrame {
                     list2.clearSelection();
 
                 } catch (IndexOutOfBoundsException n) {
-                    System.out.println("List has no value selected");
+                    //System.out.println("List has no value selected");
                 } catch (NullPointerException n) {
-                    System.out.println("No car selected");
+                    //System.out.println("No car selected");
                 }
             }
         });
@@ -231,7 +229,6 @@ public class rentYourCarGUI extends JFrame {
             @Override public void actionPerformed(ActionEvent e) {
                 ChangeCard(signInUserPanel);
                 getAllusers(userList);
-                System.out.println(userList);
             } });
 
 
@@ -249,7 +246,7 @@ public class rentYourCarGUI extends JFrame {
                         addToBalanceButton.setVisible(true);
                         balanceLabel.setVisible(true);
                         ChangeCard(homePanel);
-                        System.out.println(currentUser.toString());
+                        //System.out.println(currentUser.toString());
                         welcomeUserLabel.setText("Welcome " + currentUser.getFirstName() + " " + currentUser.getLastName());
                         todaydateLabel.setText(dateTimeHandler.GetTodaysDate());
                     } else {
@@ -542,7 +539,7 @@ public class rentYourCarGUI extends JFrame {
                 }
             }
         } catch (IndexOutOfBoundsException n) {
-            System.out.println("List does not have a selected value");
+            //System.out.println("List does not have a selected value");
         }
     }
 
@@ -554,7 +551,7 @@ public class rentYourCarGUI extends JFrame {
         for (User x : userList) {
             listModel3.addElement(x);
         }
-        System.out.println(listModel3.size());
+        //System.out.println(listModel3.size());
         list3.updateUI();
     }
 
@@ -574,7 +571,7 @@ public class rentYourCarGUI extends JFrame {
             list2.updateUI();
             list4.updateUI();
         } else {
-            System.out.println("No car listings");
+            //System.out.println("No car listings");
         }
     }
 
@@ -729,7 +726,7 @@ public class rentYourCarGUI extends JFrame {
                         cvvField.setText(String.valueOf(currentUser.getCvvNumber()));
                     }
                 } catch (NullPointerException n) {
-                    System.out.println("No card saved");
+                    //System.out.println("No card saved");
                 }
                 newBooking.setAvailable(false);
                 if (currentUser.getCardNumber().length() == 16) {

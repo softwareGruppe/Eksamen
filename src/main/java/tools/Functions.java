@@ -135,7 +135,6 @@ public final class Functions {
             }
             String todaysdate = dateTimeHandler.GetTodaysDate();
             String[] dates = todaysdate.split("-");
-            System.out.println(dates[2].substring(dates[2].length()-2));
             if (cardNumber.length() != 16) {
                 return "Cardnumber needs to contain 16 digits";
             }
