@@ -165,6 +165,7 @@ public class rentYourCarGUI extends JFrame {
         errorPayment.setVisible(false);
         addToBalanceButton.setVisible(false);
         balanceLabel.setVisible(false);
+        errorCreateAdField.setVisible(false);
         JScrollPane.getVerticalScrollBar().setUnitIncrement(30);
         JScrollPane2.getVerticalScrollBar().setUnitIncrement(30);
         JScrollPane3.getVerticalScrollBar().setUnitIncrement(30);
@@ -422,8 +423,8 @@ public class rentYourCarGUI extends JFrame {
                 FuelChange(3);
             } });
         createAddButton.addActionListener(new ActionListener() { @Override public void actionPerformed(ActionEvent e) {
-                CreateAd();
                 ClearSelections();
+                CreateAd();
             } });
         regnrField.addCaretListener(new CaretListener() { @Override public void caretUpdate(CaretEvent e) {
             regnrField.setBackground(white);
@@ -747,6 +748,7 @@ public class rentYourCarGUI extends JFrame {
     }
 
     public boolean CreateAd() { //Validates all areas and can check if it is able to be proccessed
+        System.out.println(errorCreateAdField.getText());
         boolean success = false;
         String regNr = regnrField.getText();
         String carType = cartypeField.getText();
@@ -807,11 +809,18 @@ public class rentYourCarGUI extends JFrame {
                 success = true;
             } else if (fault == 1) {
                 errorCreateAdField.setText("Warning: Registration Number already exists!");
+                errorCreateAdField.setVisible(true);
+                System.out.println(errorCreateAdField.getText());
             } else if (fault == 2) {
                 errorCreateAdField.setText("Electric vehicles does not support manual gearbox");
+                errorCreateAdField.setVisible(true);
+                System.out.println(errorCreateAdField.getText());
             }
         } else {
+            errorCreateAdField.setVisible(true);
             errorCreateAdField.setText(errorMessage);
+            System.out.println(errorCreateAdField.getText());
+            System.out.println(errorCreateAdField.isVisible());
         }
         return success;
     }
@@ -848,7 +857,11 @@ public class rentYourCarGUI extends JFrame {
                 GetMyListingsPageListings();
             } else {
                 errorPayment.setText("Payment declined, you're broke");
+                errorPayment.setVisible(true);
             }
+        } else {
+            errorPayment.setText(errorMessage);
+            errorPayment.setVisible(true);
         }
         return success;
     }

@@ -40,12 +40,12 @@
   "fuel" : "Petrol",
   "driveMileage" : 400,
   "price" : 3000,
-  "tenantId" : 0,
-  "bookingStartDate" : null,
-  "bookingStartTime" : null,
-  "bookingEndDate" : null,
-  "bookingEndTime" : null,
-  "available" : true
+  "tenantId" : 2,
+  "bookingStartDate" : "12-12-2024",
+  "bookingStartTime" : "12:50",
+  "bookingEndDate" : "12-12-2025",
+  "bookingEndTime" : "12:50",
+  "available" : false
 }, {
   "ownerId" : 4,
   "regNum" : "AR89232",
